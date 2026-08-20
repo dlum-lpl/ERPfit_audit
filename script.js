@@ -203,6 +203,22 @@ function scoreLabel(score) {
   return "Foundational";
 }
 
+function getQuestionResponses() {
+  return categories.map((category) => ({
+    title: category.title,
+    questions: category.questions.map((question, questionIndex) => {
+      const score = answers[`${category.id}-${questionIndex}`];
+      const options = question.options || answerLevels;
+      const selectedOption = options.find((option) => option.score === score);
+      return {
+        question: question.text,
+        response: selectedOption ? selectedOption.label : "Not answered",
+        score
+      };
+    })
+  }));
+}
+
 function showResults() {
   const scoredCategories = categories.map((category) => ({ ...category, score: getCategoryScore(category) }));
   const overall = Math.round(scoredCategories.reduce((sum, category) => sum + category.score, 0) / scoredCategories.length);
@@ -239,7 +255,7 @@ function showResults() {
   fillList("roadmap-now", roadmap.now);
   fillList("roadmap-next", roadmap.next);
   fillList("roadmap-later", roadmap.later);
-  latestResults = { overall, scoredCategories, strengths, gaps, recommendations, roadmap };
+  latestResults = { overall, scoredCategories, strengths, gaps, recommendations, roadmap, questionResponses: getQuestionResponses() };
   ensureResultsActions();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -248,40 +264,63 @@ function fillList(elementId, items) {
   document.getElementById(elementId).innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
+function getLogoPath() {
+  return document.querySelector(".brand-logo")?.getAttribute("src") || "applivon-logo-hor-web1.png";
+}
+
 function ensureResultsActions() {
-  if (document.getElementById("results-actions")) return;
+  if (!document.getElementById("results-actions")) {
+    const resultsFooter = document.querySelector(".results-footer");
+    if (!resultsFooter) return;
+    resultsFooter.insertAdjacentHTML("afterend", `
+      <div id="results-actions" class="results-actions">
+        <article class="results-action-card">
+          <img class="action-card-logo" src="${escapeHtml(getLogoPath())}" alt="Applivon" />
+          <div class="action-card-copy"><p class="eyebrow">Keep a copy</p><h3>Save this results page</h3><p>Save a self-contained HTML snapshot that you can open later.</p><p class="action-contact">enquiry@applivon.com · +65 6589 8939</p></div>
+          <button id="save-results-button" class="button button-secondary" type="button">Save results page <span aria-hidden="true">↓</span></button>
+          <p id="save-results-status" class="action-status" role="status"></p>
+        </article>
+      </div>
+    `);
+    document.getElementById("save-results-button").addEventListener("click", saveResultsPage);
+  }
+  ensureDiscussEmailForm();
+}
+
+function ensureDiscussEmailForm() {
   const resultsFooter = document.querySelector(".results-footer");
-  if (!resultsFooter) return;
-  resultsFooter.insertAdjacentHTML("afterend", `
-    <div id="results-actions" class="results-actions">
-      <article class="results-action-card">
-        <div class="action-card-copy"><p class="eyebrow">Keep a copy</p><h3>Save this results page</h3><p>Save a self-contained HTML snapshot that you can open later.</p></div>
-        <button id="save-results-button" class="button button-secondary" type="button">Save results page <span aria-hidden="true">↓</span></button>
-        <p id="save-results-status" class="action-status" role="status"></p>
-      </article>
-      <article class="results-action-card">
-        <div class="action-card-copy"><p class="eyebrow">Share by email</p><h3>Send these results</h3><p>Your email app will open with the results summary. Review it and press Send.</p></div>
-        <label class="email-field" for="results-email">Recipient email address<input id="results-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>
-        <button id="send-results-button" class="button button-primary" type="button">Open email draft <span aria-hidden="true">→</span></button>
-        <p class="bcc-note"></p>
-        <p id="email-status" class="action-status" role="status"></p>
-      </article>
+  const existingLink = resultsFooter?.querySelector("a.button");
+  if (!resultsFooter || !existingLink || document.getElementById("discuss-email")) return;
+  existingLink.outerHTML = `
+    <div class="results-discuss-form">
+      <label for="discuss-email">Enter your email to send your results<input id="discuss-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>
+      <button id="discuss-results-button" class="button button-primary" type="button">Discuss your results <span aria-hidden="true">→</span></button>
+      <p id="discuss-email-status" class="discuss-email-status" role="status">Your default email app will open with the result summary ready to send.</p>
     </div>
-  `);
-  document.getElementById("save-results-button").addEventListener("click", saveResultsPage);
-  document.getElementById("send-results-button").addEventListener("click", sendResultsByEmail);
+  `;
+  document.getElementById("discuss-results-button").addEventListener("click", sendDiscussEmail);
 }
 
 function buildResultsPlainText() {
   if (!latestResults) return "";
   const categoryLines = latestResults.scoredCategories.map((category) => `- ${category.title}: ${category.score}/100`);
+  const questionLines = latestResults.questionResponses.flatMap((category) => [
+    category.title,
+    ...category.questions.map((item, index) => `  ${index + 1}. ${item.question}\n     Response: ${item.response} (${item.score}/100)`)
+  ]);
   const recommendationLines = latestResults.recommendations.map((recommendation, index) => `${index + 1}. ${recommendation.title} — ${recommendation.text}`);
   return [
     "Applivon Business Automation Audit Results",
+    "Applivon",
+    "Email: enquiry@applivon.com",
+    "Mobile: +65 6589 8939",
     `Overall digital operations score: ${latestResults.overall}/100`,
     "",
     "Category scores",
     ...categoryLines,
+    "",
+    "Questions and responses",
+    ...questionLines,
     "",
     "What you are doing well",
     ...latestResults.strengths.map((item) => `- ${item}`),
@@ -301,13 +340,15 @@ function buildResultsPlainText() {
 
 function buildSavedResultsHtml() {
   const result = latestResults;
+  const logoPath = escapeHtml(getLogoPath());
   const categoryRows = result.scoredCategories.map((category) => `<tr><td>${escapeHtml(category.title)}</td><td>${category.score}/100</td></tr>`).join("");
+  const questionSections = result.questionResponses.map((category) => `<h3>Questions &amp; responses · ${escapeHtml(category.title)}</h3><table class="question-table">${category.questions.map((item, index) => `<tr><td>${index + 1}. ${escapeHtml(item.question)}</td><td>${escapeHtml(item.response)}<br><small>${item.score}/100</small></td></tr>`).join("")}</table>`).join("");
   const list = (items) => items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
   const recommendations = result.recommendations.map((recommendation) => `<li><strong>${escapeHtml(recommendation.title)}</strong> — ${escapeHtml(recommendation.text)}</li>`).join("");
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Applivon Audit Results · ${result.overall}/100</title>
-<style>body{background:#f7f8f4;color:#183a3d;font-family:Arial,sans-serif;line-height:1.5;margin:0;padding:40px}main{background:#fff;border:1px solid #dfe7e2;border-radius:16px;margin:auto;max-width:820px;padding:36px}h1{font-size:34px;letter-spacing:-1px;margin:0 0 8px}h2{font-size:18px;margin:30px 0 10px}p{color:#557073}.score{color:#dc8051;font-size:58px;font-weight:800;margin:18px 0}table{border-collapse:collapse;width:100%}td{border-bottom:1px solid #dfe7e2;padding:10px}td:last-child{font-weight:800;text-align:right}li{margin:8px 0}.note{color:#849294;font-size:12px;margin-top:35px}</style></head>
-<body><main><p>APPLIVON · BUSINESS AUTOMATION AUDIT</p><h1>Your audit results</h1><div class="score">${result.overall}<small>/100</small></div><p>A practical snapshot of process automation, system connectivity, data quality, reporting and AI readiness.</p><h2>Category scores</h2><table>${categoryRows}</table><h2>What you are doing well</h2><ul>${list(result.strengths)}</ul><h2>Productivity gaps</h2><ul>${list(result.gaps)}</ul><h2>Recommended actions</h2><ol>${recommendations}</ol><h2>Suggested roadmap</h2><ul><li><strong>Now:</strong> ${escapeHtml(result.roadmap.now.join("; "))}</li><li><strong>Next:</strong> ${escapeHtml(result.roadmap.next.join("; "))}</li><li><strong>Later:</strong> ${escapeHtml(result.roadmap.later.join("; "))}</li></ul><p class="note">Saved from the Applivon Business Automation Audit on ${escapeHtml(new Date().toLocaleString())}.</p></main></body></html>`;
+<style>body{background:#f7f8f4;color:#183a3d;font-family:Arial,sans-serif;line-height:1.5;margin:0;padding:40px}main{background:#fff;border:1px solid #dfe7e2;border-radius:16px;margin:auto;max-width:820px;padding:36px}.saved-logo{display:block;height:auto;margin-bottom:18px;max-width:190px}.contact-line{color:#557073;font-size:13px;margin:0 0 18px}h1{font-size:34px;letter-spacing:-1px;margin:0 0 8px}h2{font-size:18px;margin:30px 0 10px}p{color:#557073}.score{color:#dc8051;font-size:58px;font-weight:800;margin:18px 0}table{border-collapse:collapse;width:100%}td{border-bottom:1px solid #dfe7e2;padding:10px;vertical-align:top}td:last-child{font-weight:800;text-align:right}.question-table td:first-child{width:70%}.question-table small{color:#849294;font-weight:normal}li{margin:8px 0}.note{color:#849294;font-size:12px;margin-top:35px}</style></head>
+<body><main><img class="saved-logo" src="${logoPath}" alt="Applivon" /><p class="contact-line">enquiry@applivon.com · +65 6589 8939</p><p>APPLIVON · BUSINESS AUTOMATION AUDIT</p><h1>Your audit results</h1><div class="score">${result.overall}<small>/100</small></div><p>A practical snapshot of process automation, system connectivity, data quality, reporting and AI readiness.</p><h2>Category scores</h2><table>${categoryRows}</table>${questionSections}<h2>What you are doing well</h2><ul>${list(result.strengths)}</ul><h2>Productivity gaps</h2><ul>${list(result.gaps)}</ul><h2>Recommended actions</h2><ol>${recommendations}</ol><h2>Suggested roadmap</h2><ul><li><strong>Now:</strong> ${escapeHtml(result.roadmap.now.join("; "))}</li><li><strong>Next:</strong> ${escapeHtml(result.roadmap.next.join("; "))}</li><li><strong>Later:</strong> ${escapeHtml(result.roadmap.later.join("; "))}</li></ul><p class="note">Saved from the Applivon Business Automation Audit on ${escapeHtml(new Date().toLocaleString())}.</p></main></body></html>`;
 }
 
 function downloadTextFile(fileName, contents) {
@@ -341,19 +382,19 @@ async function saveResultsPage() {
   }
 }
 
-function sendResultsByEmail() {
+function sendDiscussEmail() {
   if (!latestResults) return;
-  const emailInput = document.getElementById("results-email");
-  const status = document.getElementById("email-status");
+  const emailInput = document.getElementById("discuss-email");
+  const status = document.getElementById("discuss-email-status");
   const email = emailInput.value.trim();
   if (!email || !emailInput.checkValidity()) {
     status.textContent = "Enter a valid recipient email address.";
     emailInput.focus();
     return;
   }
-  const subject = `Applivon Business Automation Audit Results · ${latestResults.overall}/100`;
-  const bcc = "dawnlumkx@gmail.com";
-  const mailto = `mailto:${encodeURIComponent(email)}?bcc=${encodeURIComponent(bcc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildResultsPlainText())}`;
+  const subject = "Applivon ERP fit audit";
+  const cc = "dawnlumkx@gmail.com";
+  const mailto = `mailto:${encodeURIComponent(email)}?cc=${encodeURIComponent(cc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildResultsPlainText())}`;
   status.textContent = "Opening your email app...";
   window.location.href = mailto;
 }

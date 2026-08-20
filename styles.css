@@ -40,6 +40,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand { align-items: center; display: flex; font-size: 1.18rem; font-weight: 750; letter-spacing: -0.04em; }
+.brand-logo { display: block; height: auto; max-width: 175px; width: 175px; }
 .brand-mark { align-items: center; background: var(--ink); border-radius: 50%; color: var(--mint); display: inline-flex; font-size: 0.75rem; height: 28px; justify-content: center; margin-right: 9px; width: 28px; }
 .brand-dot { color: var(--orange); }
 .header-label { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -172,18 +173,31 @@ h4 { font-size: 1.02rem; margin: 8px 0 16px; }
 .results-footer strong { font-size: 0.98rem; }
 .results-footer span { color: #b8ccca; font-size: 0.8rem; margin-top: 3px; }
 .results-footer .button { background: var(--mint); color: var(--ink); flex: 0 0 auto; margin-left: 20px; }
-.results-actions { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; margin-top: 14px; }
-.results-action-card { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; }
-.action-card-copy h3 { font-size: 1.16rem; margin: 0 0 6px; }
-.action-card-copy p:not(.eyebrow) { color: var(--ink-soft); font-size: 0.8rem; margin-bottom: 16px; }
+.results-actions { display: block; margin-top: 14px; }
+.results-action-card { background: var(--white); border: 1px solid var(--line); border-radius: 14px; font-size: 12px; padding: 22px 24px; }
+.results-action-card .eyebrow, .action-card-copy h3, .action-card-copy p:not(.eyebrow), .results-action-card .button, .results-action-card .action-status { font-size: 12px; }
+.action-card-copy h3 { margin: 0 0 6px; }
+.action-card-copy p:not(.eyebrow) { color: var(--ink-soft); margin-bottom: 16px; }
 .results-action-card .button { margin-top: 15px; }
+.action-card-logo { display: block; height: auto; margin-bottom: 12px; max-width: 145px; width: 145px; }
+.action-contact { color: var(--green) !important; font-size: 0.68rem !important; font-weight: 750; }
 .email-field { color: var(--ink-soft); display: block; font-size: 0.72rem; font-weight: 750; }
 .email-field input { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); display: block; font: inherit; margin-top: 7px; outline: none; padding: 10px 11px; width: 100%; }
 .email-field input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(52,125,99,0.12); }
 .bcc-note, .action-status { color: var(--muted); font-size: 0.68rem; margin: 9px 0 0; }
 .action-status { color: var(--green); min-height: 18px; }
+.results-discuss-form { display: grid; gap: 8px; min-width: 290px; }
+.results-discuss-form label { color: #b8ccca; display: grid; font-size: 0.68rem; font-weight: 750; gap: 6px; }
+.results-discuss-form input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.28); border-radius: 8px; color: white; font: inherit; outline: none; padding: 9px 10px; width: 100%; }
+.results-discuss-form input::placeholder { color: #a9c1bd; }
+.results-discuss-form input:focus { border-color: var(--mint); box-shadow: 0 0 0 3px rgba(201,234,217,0.16); }
+.results-discuss-form .button { margin: 0; }
+.discuss-email-status { color: #b8ccca; font-size: 0.62rem; line-height: 1.35; margin: 0; }
 .site-footer { color: var(--muted); display: flex; font-size: 0.72rem; justify-content: space-between; margin: 0 auto; max-width: 1240px; padding: 0 36px 28px; }
 .site-footer span:first-child { color: var(--ink); font-weight: 750; }
+.contact-details { align-items: center; display: flex; flex-wrap: wrap; gap: 12px; }
+.contact-details a { color: var(--muted); }
+.contact-details a:hover { color: var(--green); }
 
 @media (max-width: 800px) {
   .site-header { padding: 22px 20px; }
@@ -208,8 +222,10 @@ h4 { font-size: 1.02rem; margin: 8px 0 16px; }
   .roadmap-grid { grid-template-columns: 1fr; }
   .results-footer { align-items: start; display: block; }
   .results-footer .button { margin: 20px 0 0; }
-  .results-actions { grid-template-columns: 1fr; }
+  .results-discuss-form { margin-top: 22px; }
+  .results-discuss-form .button { margin: 0; }
   .site-footer { padding: 0 20px 22px; }
+  .brand-logo { max-width: 150px; width: 150px; }
 }
 
 @media (max-width: 430px) {
