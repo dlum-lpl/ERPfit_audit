@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A self-serve Business Automation and Data Connectivity Audit for Singapore SMEs." />
+  <title>Applivon Business Automation Audit</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Applivon Business Automation Audit home">
+      <span class="brand-mark">A</span>
+      <span>applivon<span class="brand-dot">.</span></span>
+    </a>
+    <span class="header-label">Business Automation Audit</span>
+  </header>
+
+  <main id="top">
+    <section id="intro-screen" class="screen intro-screen" aria-labelledby="intro-title">
+      <div class="intro-copy">
+        <p class="eyebrow">A practical starting point for better operations</p>
+        <h1 id="intro-title">How connected and automated is your business today?</h1>
+        <p class="intro-text">Answer 14 short questions to see where productivity is being lost across your processes, systems and data — and what to improve first.</p>
+        <div class="intro-actions">
+          <button id="start-button" class="button button-primary" type="button">Start the audit <span aria-hidden="true">→</span></button>
+          <span class="time-note"><span class="clock-icon" aria-hidden="true">◷</span> Takes about 7 minutes</span>
+        </div>
+        <p class="privacy-note"><span aria-hidden="true">▣</span> Your answers are used only for this session and are not saved.</p>
+      </div>
+      <div class="intro-visual" aria-hidden="true">
+        <div class="visual-grid"></div>
+        <div class="visual-card visual-card-main">
+          <div class="mini-label">Digital operations score</div>
+          <div class="mini-score">52<span>/100</span></div>
+          <div class="mini-bar"><i></i></div>
+          <div class="mini-status">Developing <span>↗</span></div>
+        </div>
+        <div class="visual-card visual-card-float">
+          <span class="float-icon">↗</span>
+          <span><strong>3</strong><small>quick wins</small></span>
+        </div>
+        <div class="visual-orb"></div>
+      </div>
+    </section>
+
+    <section id="audit-screen" class="screen audit-screen hidden" aria-labelledby="audit-title">
+      <div class="audit-topline">
+        <div>
+          <p class="eyebrow">Business Automation &amp; Data Connectivity Audit</p>
+          <h2 id="audit-title">Tell us how work gets done today.</h2>
+        </div>
+        <div class="progress-copy"><span id="step-label">1 of 7</span><strong id="progress-percent">14%</strong></div>
+      </div>
+      <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+
+      <div class="category-heading">
+        <span id="category-number" class="category-number">01</span>
+        <div>
+          <p class="eyebrow" id="category-kicker">Category 01</p>
+          <h3 id="category-title">Process automation</h3>
+          <p id="category-description">How consistently do routine tasks move forward without manual chasing?</p>
+        </div>
+      </div>
+
+      <form id="audit-form" novalidate>
+        <div id="question-list" class="question-list"></div>
+        <p id="form-message" class="form-message" role="alert"></p>
+        <div class="form-actions">
+          <button id="back-button" class="button button-secondary" type="button">← Back</button>
+          <button id="next-button" class="button button-primary" type="button">Next category <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </section>
+
+    <section id="results-screen" class="screen results-screen hidden" aria-labelledby="results-title">
+      <div class="results-header">
+        <div>
+          <p class="eyebrow">Your audit results</p>
+          <h2 id="results-title">A clearer view of where to improve.</h2>
+          <p class="results-intro">Use this as a practical conversation starter. The score indicates where to investigate first — it is not a formal business rating.</p>
+        </div>
+        <button id="restart-button" class="text-button" type="button">Start again ↺</button>
+      </div>
+
+      <div class="results-overview">
+        <div class="score-panel">
+          <p class="eyebrow">Overall digital operations score</p>
+          <div id="overall-score" class="overall-score">0<span>/100</span></div>
+          <div class="score-track"><span id="overall-score-bar"></span></div>
+          <p id="overall-status" class="score-status">Developing</p>
+          <p id="score-summary" class="score-summary"></p>
+        </div>
+        <div class="overview-note">
+          <span class="note-icon" aria-hidden="true">i</span>
+          <div>
+            <strong>What this means</strong>
+            <p id="meaning-copy">Your results highlight the areas where better process design and system connectivity could release the most time.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title-row">
+        <div>
+          <p class="eyebrow">The big picture</p>
+          <h3>Category scores</h3>
+        </div>
+        <span class="legend"><i class="legend-dot good"></i> Strong <i class="legend-dot watch"></i> Developing <i class="legend-dot priority"></i> Priority</span>
+      </div>
+      <div id="category-results" class="category-results"></div>
+
+      <div class="insight-grid">
+        <article class="insight-card strengths-card">
+          <div class="insight-heading"><span class="insight-icon good-icon">✓</span><div><p class="eyebrow">Keep building on it</p><h3>What you’re doing well</h3></div></div>
+          <ul id="strengths-list"></ul>
+        </article>
+        <article class="insight-card gaps-card">
+          <div class="insight-heading"><span class="insight-icon gap-icon">!</span><div><p class="eyebrow">Where time is leaking</p><h3>Productivity gaps</h3></div></div>
+          <ul id="gaps-list"></ul>
+        </article>
+      </div>
+
+      <div class="section-title-row recommendations-title">
+        <div>
+          <p class="eyebrow">Quick wins &amp; strategic direction</p>
+          <h3>Recommended actions</h3>
+        </div>
+      </div>
+      <div id="recommendations-list" class="recommendations-list"></div>
+
+      <div class="roadmap-section">
+        <div class="section-title-row">
+          <div>
+            <p class="eyebrow">A sensible sequence</p>
+            <h3>Suggested roadmap</h3>
+          </div>
+        </div>
+        <div class="roadmap-grid">
+          <article class="roadmap-card now-card"><span class="roadmap-phase">01 · Now</span><h4>Stabilise the basics</h4><ul id="roadmap-now"></ul></article>
+          <article class="roadmap-card next-card"><span class="roadmap-phase">02 · Next</span><h4>Connect the workflow</h4><ul id="roadmap-next"></ul></article>
+          <article class="roadmap-card later-card"><span class="roadmap-phase">03 · Later</span><h4>Scale with insight</h4><ul id="roadmap-later"></ul></article>
+        </div>
+      </div>
+
+      <div class="results-footer">
+        <div><strong>Ready to turn the findings into a practical plan?</strong><span>Start with the highest-priority gap and validate the workflow with your team.</span></div>
+        <a class="button button-primary" href="mailto:hello@applivon.com?subject=Business%20Automation%20Audit">Discuss your results <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>Applivon</span><span>Advisory-led business automation</span></footer>
+  <script src="script.js"></script>
+</body>
+</html>
