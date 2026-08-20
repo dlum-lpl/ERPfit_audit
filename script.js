@@ -263,7 +263,7 @@ function ensureResultsActions() {
         <div class="action-card-copy"><p class="eyebrow">Share by email</p><h3>Send these results</h3><p>Your email app will open with the results summary. Review it and press Send.</p></div>
         <label class="email-field" for="results-email">Recipient email address<input id="results-email" type="email" autocomplete="email" placeholder="you@example.com" /></label>
         <button id="send-results-button" class="button button-primary" type="button">Open email draft <span aria-hidden="true">→</span></button>
-        <p class="bcc-note">A BCC copy will be addressed to dawnlumkx@gmaill.com.</p>
+        <p class="bcc-note"></p>
         <p id="email-status" class="action-status" role="status"></p>
       </article>
     </div>
@@ -352,7 +352,7 @@ function sendResultsByEmail() {
     return;
   }
   const subject = `Applivon Business Automation Audit Results · ${latestResults.overall}/100`;
-  const bcc = "dawnlumkx@gmaill.com";
+  const bcc = "dawnlumkx@gmail.com";
   const mailto = `mailto:${encodeURIComponent(email)}?bcc=${encodeURIComponent(bcc)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildResultsPlainText())}`;
   status.textContent = "Opening your email app...";
   window.location.href = mailto;
