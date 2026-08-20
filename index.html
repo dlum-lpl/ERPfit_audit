@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="A self-serve Business Automation and Data Connectivity Audit for Singapore SMEs." />
   <title>Applivon Business Automation Audit</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
   <header class="site-header">
@@ -15,13 +15,12 @@
     </a>
     <span class="header-label">Business Automation Audit</span>
   </header>
-
   <main id="top">
     <section id="intro-screen" class="screen intro-screen" aria-labelledby="intro-title">
       <div class="intro-copy">
         <p class="eyebrow">A practical starting point for better operations</p>
         <h1 id="intro-title">How connected and automated is your business today?</h1>
-        <p class="intro-text">Answer 14 short questions to see where productivity is being lost across your processes, systems and data — and what to improve first.</p>
+        <p class="intro-text">Answer a short set of questions to see where productivity is being lost across your processes, systems and data — and what to improve first.</p>
         <div class="intro-actions">
           <button id="start-button" class="button button-primary" type="button">Start the audit <span aria-hidden="true">→</span></button>
           <span class="time-note"><span class="clock-icon" aria-hidden="true">◷</span> Takes about 7 minutes</span>
@@ -30,126 +29,376 @@
       </div>
       <div class="intro-visual" aria-hidden="true">
         <div class="visual-grid"></div>
-        <div class="visual-card visual-card-main">
-          <div class="mini-label">Digital operations score</div>
-          <div class="mini-score">52<span>/100</span></div>
-          <div class="mini-bar"><i></i></div>
-          <div class="mini-status">Developing <span>↗</span></div>
-        </div>
-        <div class="visual-card visual-card-float">
-          <span class="float-icon">↗</span>
-          <span><strong>3</strong><small>quick wins</small></span>
-        </div>
+        <div class="visual-card visual-card-main"><div class="mini-label">Digital operations score</div><div class="mini-score">52<span>/100</span></div><div class="mini-bar"><i></i></div><div class="mini-status">Developing <span>↗</span></div></div>
+        <div class="visual-card visual-card-float"><span class="float-icon">↗</span><span><strong>3</strong><small>quick wins</small></span></div>
         <div class="visual-orb"></div>
       </div>
     </section>
-
     <section id="audit-screen" class="screen audit-screen hidden" aria-labelledby="audit-title">
-      <div class="audit-topline">
-        <div>
-          <p class="eyebrow">Business Automation &amp; Data Connectivity Audit</p>
-          <h2 id="audit-title">Tell us how work gets done today.</h2>
-        </div>
-        <div class="progress-copy"><span id="step-label">1 of 7</span><strong id="progress-percent">14%</strong></div>
-      </div>
+      <div class="audit-topline"><div><p class="eyebrow">Business Automation &amp; Data Connectivity Audit</p><h2 id="audit-title">Tell us how work gets done today.</h2></div><div class="progress-copy"><span id="step-label">1 of 7</span><strong id="progress-percent">14%</strong></div></div>
       <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
-
-      <div class="category-heading">
-        <span id="category-number" class="category-number">01</span>
-        <div>
-          <p class="eyebrow" id="category-kicker">Category 01</p>
-          <h3 id="category-title">Process automation</h3>
-          <p id="category-description">How consistently do routine tasks move forward without manual chasing?</p>
-        </div>
-      </div>
-
-      <form id="audit-form" novalidate>
-        <div id="question-list" class="question-list"></div>
-        <p id="form-message" class="form-message" role="alert"></p>
-        <div class="form-actions">
-          <button id="back-button" class="button button-secondary" type="button">← Back</button>
-          <button id="next-button" class="button button-primary" type="button">Next category <span aria-hidden="true">→</span></button>
-        </div>
-      </form>
+      <div class="category-heading"><span id="category-number" class="category-number">01</span><div><p class="eyebrow" id="category-kicker">Category 01</p><h3 id="category-title">Process automation</h3><p id="category-description">How consistently do routine tasks move forward without manual chasing?</p></div></div>
+      <form id="audit-form" novalidate><div id="question-list" class="question-list"></div><p id="form-message" class="form-message" role="alert"></p><div class="form-actions"><button id="back-button" class="button button-secondary" type="button">← Back</button><button id="next-button" class="button button-primary" type="button">Next category <span aria-hidden="true">→</span></button></div></form>
     </section>
-
     <section id="results-screen" class="screen results-screen hidden" aria-labelledby="results-title">
-      <div class="results-header">
-        <div>
-          <p class="eyebrow">Your audit results</p>
-          <h2 id="results-title">A clearer view of where to improve.</h2>
-          <p class="results-intro">Use this as a practical conversation starter. The score indicates where to investigate first — it is not a formal business rating.</p>
-        </div>
-        <button id="restart-button" class="text-button" type="button">Start again ↺</button>
-      </div>
-
-      <div class="results-overview">
-        <div class="score-panel">
-          <p class="eyebrow">Overall digital operations score</p>
-          <div id="overall-score" class="overall-score">0<span>/100</span></div>
-          <div class="score-track"><span id="overall-score-bar"></span></div>
-          <p id="overall-status" class="score-status">Developing</p>
-          <p id="score-summary" class="score-summary"></p>
-        </div>
-        <div class="overview-note">
-          <span class="note-icon" aria-hidden="true">i</span>
-          <div>
-            <strong>What this means</strong>
-            <p id="meaning-copy">Your results highlight the areas where better process design and system connectivity could release the most time.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-title-row">
-        <div>
-          <p class="eyebrow">The big picture</p>
-          <h3>Category scores</h3>
-        </div>
-        <span class="legend"><i class="legend-dot good"></i> Strong <i class="legend-dot watch"></i> Developing <i class="legend-dot priority"></i> Priority</span>
-      </div>
+      <div class="results-header"><div><p class="eyebrow">Your audit results</p><h2 id="results-title">A clearer view of where to improve.</h2><p class="results-intro">Use this as a practical conversation starter. The score indicates where to investigate first — it is not a formal business rating.</p></div><button id="restart-button" class="text-button" type="button">Start again ↺</button></div>
+      <div class="results-overview"><div class="score-panel"><p class="eyebrow">Overall digital operations score</p><div id="overall-score" class="overall-score">0<span>/100</span></div><div class="score-track"><span id="overall-score-bar"></span></div><p id="overall-status" class="score-status">Developing</p><p id="score-summary" class="score-summary"></p></div><div class="overview-note"><span class="note-icon" aria-hidden="true">i</span><div><strong>What this means</strong><p id="meaning-copy">Your results highlight the areas where better process design and system connectivity could release the most time.</p></div></div></div>
+      <div class="section-title-row"><div><p class="eyebrow">The big picture</p><h3>Category scores</h3></div><span class="legend"><i class="legend-dot good"></i> Strong <i class="legend-dot watch"></i> Developing <i class="legend-dot priority"></i> Priority</span></div>
       <div id="category-results" class="category-results"></div>
-
-      <div class="insight-grid">
-        <article class="insight-card strengths-card">
-          <div class="insight-heading"><span class="insight-icon good-icon">✓</span><div><p class="eyebrow">Keep building on it</p><h3>What you’re doing well</h3></div></div>
-          <ul id="strengths-list"></ul>
-        </article>
-        <article class="insight-card gaps-card">
-          <div class="insight-heading"><span class="insight-icon gap-icon">!</span><div><p class="eyebrow">Where time is leaking</p><h3>Productivity gaps</h3></div></div>
-          <ul id="gaps-list"></ul>
-        </article>
-      </div>
-
-      <div class="section-title-row recommendations-title">
-        <div>
-          <p class="eyebrow">Quick wins &amp; strategic direction</p>
-          <h3>Recommended actions</h3>
-        </div>
-      </div>
-      <div id="recommendations-list" class="recommendations-list"></div>
-
-      <div class="roadmap-section">
-        <div class="section-title-row">
-          <div>
-            <p class="eyebrow">A sensible sequence</p>
-            <h3>Suggested roadmap</h3>
-          </div>
-        </div>
-        <div class="roadmap-grid">
-          <article class="roadmap-card now-card"><span class="roadmap-phase">01 · Now</span><h4>Stabilise the basics</h4><ul id="roadmap-now"></ul></article>
-          <article class="roadmap-card next-card"><span class="roadmap-phase">02 · Next</span><h4>Connect the workflow</h4><ul id="roadmap-next"></ul></article>
-          <article class="roadmap-card later-card"><span class="roadmap-phase">03 · Later</span><h4>Scale with insight</h4><ul id="roadmap-later"></ul></article>
-        </div>
-      </div>
-
-      <div class="results-footer">
-        <div><strong>Ready to turn the findings into a practical plan?</strong><span>Start with the highest-priority gap and validate the workflow with your team.</span></div>
-        <a class="button button-primary" href="mailto:hello@applivon.com?subject=Business%20Automation%20Audit">Discuss your results <span aria-hidden="true">→</span></a>
-      </div>
+      <div class="insight-grid"><article class="insight-card strengths-card"><div class="insight-heading"><span class="insight-icon good-icon">✓</span><div><p class="eyebrow">Keep building on it</p><h3>What you’re doing well</h3></div></div><ul id="strengths-list"></ul></article><article class="insight-card gaps-card"><div class="insight-heading"><span class="insight-icon gap-icon">!</span><div><p class="eyebrow">Where time is leaking</p><h3>Productivity gaps</h3></div></div><ul id="gaps-list"></ul></article></div>
+      <div class="section-title-row recommendations-title"><div><p class="eyebrow">Quick wins &amp; strategic direction</p><h3>Recommended actions</h3></div></div><div id="recommendations-list" class="recommendations-list"></div>
+      <div class="roadmap-section"><div class="section-title-row"><div><p class="eyebrow">A sensible sequence</p><h3>Suggested roadmap</h3></div></div><div class="roadmap-grid"><article class="roadmap-card now-card"><span class="roadmap-phase">01 · Now</span><h4>Stabilise the basics</h4><ul id="roadmap-now"></ul></article><article class="roadmap-card next-card"><span class="roadmap-phase">02 · Next</span><h4>Connect the workflow</h4><ul id="roadmap-next"></ul></article><article class="roadmap-card later-card"><span class="roadmap-phase">03 · Later</span><h4>Scale with insight</h4><ul id="roadmap-later"></ul></article></div></div>
+      <div class="results-footer"><div><strong>Ready to turn the findings into a practical plan?</strong><span>Start with the highest-priority gap and validate the workflow with your team.</span></div><a class="button button-primary" href="mailto:hello@applivon.com?subject=Business%20Automation%20Audit">Discuss your results <span aria-hidden="true">→</span></a></div>
     </section>
   </main>
-
   <footer class="site-footer"><span>Applivon</span><span>Advisory-led business automation</span></footer>
-  <script src="script.js"></script>
+  <script>window.auditConfig = {
+  "categories": [
+    {
+      "id": "automation",
+      "title": "state of Process automation",
+      "description": "How consistently do routine tasks move forward without manual work involved?\n",
+      "questions": [
+        {
+          "text": "How are core business recurring tasks, approvals and handovers managed?\n",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual (paper/spreadsheets)",
+              "score": 33
+            },
+            {
+              "label": "Partly automated (digital tools)",
+              "score": 67
+            },
+            {
+              "label": "Full automated digitally",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "text": "How often is the same information copied from one step or file to another?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly (75%) manual",
+              "score": 33
+            },
+            {
+              "label": "50% connected, 50% manual",
+              "score": 67
+            },
+            {
+              "label": "Fully consistent & connected",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "systems",
+      "title": "Systems & integration",
+      "description": "Can your core systems share information reliably?",
+      "questions": [
+        {
+          "text": "How connected are your CRM, accounting, inventory or operations systems?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "text": "When a process changes, how easily can your systems and team follow the new workflow?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "title": "Data quality",
+      "description": "Can people trust the information they use to make decisions?",
+      "questions": [
+        {
+          "text": "How consistent are customer, product and supplier records across your files and systems?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "text": "How much time is spent checking, correcting or reconciling data?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "title": "Sales & customer processes",
+      "description": "Does every customer enquiry receive timely, visible and consistent follow-up?",
+      "questions": [
+        {
+          "text": "How are leads, quotations and follow-ups tracked from first contact to close?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "text": "How quickly can a team member see a customer’s history, open requests and next step?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "title": "Operations & finance",
+      "description": "Are core fulfilment and financial controls consistent enough to scale?",
+      "questions": [
+        {
+          "text": "How standardised are purchasing, fulfilment, invoicing and payment processes?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "text": "How easy is it to see order status, cash position and operational exceptions?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reporting",
+      "title": "Reporting & visibility",
+      "description": "Can leaders get a dependable view of performance without spreadsheet hunting?",
+      "questions": [
+        {
+          "text": "How much manual work is needed to prepare regular management reports?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "text": "Can you trace a report figure back to a clear, trusted source?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "title": "AI readiness",
+      "description": "Do your processes and data provide a safe foundation for useful AI?",
+      "questions": [
+        {
+          "text": "How clearly are repeatable workflows, rules and responsibilities documented?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        },
+        {
+          "text": "How confident are you that people can access accurate data with appropriate controls?",
+          "options": [
+            {
+              "label": "Not in place",
+              "score": 0
+            },
+            {
+              "label": "Mostly manual",
+              "score": 33
+            },
+            {
+              "label": "Partly consistent",
+              "score": 67
+            },
+            {
+              "label": "Consistent & connected",
+              "score": 100
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};</script>
+  <script src="../script.js"></script>
 </body>
 </html>
